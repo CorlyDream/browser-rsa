@@ -1,0 +1,9 @@
+{
+  "name": "browser-rsa",
+  "version": "1.0.0",
+  "description": "pure js rsa, rsa for browser",
+  "main": "index.js",
+  "repository": "git@github.com:CorlyDream/browser-rsa.git",
+  "author": "CorlyDream",
+  "license": "BSD"
+}
