@@ -1,5 +1,6 @@
 {
   "name": "browser-rsa",
+  "type": "module",
   "version": "1.0.0",
   "description": "pure js rsa, rsa for browser",
   "main": "index.js",
