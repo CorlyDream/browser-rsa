@@ -29,6 +29,32 @@ class ASNReader {
         return this._arr[pos] & 0xff
     }
     /**
+     * https://letsencrypt.org/docs/a-warm-welcome-to-asn1-and-der/
+     */
+    readLength() {
+        let length = this.readByte()
+        if ((length & 0x80) === 0x80) {
+            // 8th bit is set, so it's a variable length, and the next 7 bits are the length of the length
+            length &= 0x7f;
+
+            if (length === 0)
+                throw new Error('ASN.1 Indefinite length not supported');
+
+            if (length > 4)
+                throw new Error('ASN.1 encoding too long');
+
+
+
+            let tmpLen = 0;
+            for (var i = 0; i < length; i++) {
+                tmpLen = (tmpLen << 8) + (this._arr[this._offset++] & 0xff);
+            }
+            length = tmpLen
+        } 
+
+        return length;
+    }
+    /**
      * tag + length + value
      * @param {Number} tag 
      * @returns 
@@ -38,7 +64,7 @@ class ASNReader {
         if (tag && t !== tag) {
             throw new Error(`Expected tag ${tag}, got ${t}`)
         }
-        const length = this.readByte()
+        const length = this.readLength()
         const newReader = this.slice(this._offset, length)
         this._offset += length
         return newReader

@@ -3,8 +3,15 @@
   "type": "module",
   "version": "1.0.0",
   "description": "pure js rsa, rsa for browser",
-  "main": "index.js",
+  "main": "BrowserRsa.js",
   "repository": "git@github.com:CorlyDream/browser-rsa.git",
   "author": "CorlyDream",
-  "license": "BSD"
+  "license": "BSD",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint lib/*.js ./*.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.44.0"
+  }
 }
