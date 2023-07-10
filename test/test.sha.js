@@ -1,5 +1,5 @@
-import sha1 from '../lib/sha1.js'
-import SecureRandom from '../lib/rng.js';
+import sha1 from '../lib/base/sha1.js'
+import SecureRandom from '../lib/base/rng.js';
 const res = sha1('The quick brown fox jumps over the lazy dog')
 console.log(res)
 var lHash = sha1.create();

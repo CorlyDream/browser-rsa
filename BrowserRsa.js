@@ -1,4 +1,4 @@
-import { b64toBA, BAtoHex } from './lib/base64.js'
+import utils from "./lib/utils.js";
 import ASNReader from './ASNReader.js';
 import RSAKey from './lib/rsa.js';
 
@@ -14,7 +14,7 @@ class BrowserRsa {
 
     }
     setPublicKey(base64str) {
-        const arr = b64toBA(cleanKey(base64str))
+        const arr = utils.base64.toByteArray(cleanKey(base64str))
         const reader = new ASNReader(arr)
         const all = reader.readSequence()
         const header = all.readSequence()
@@ -28,21 +28,21 @@ class BrowserRsa {
         const modulus = body.readInteger() // n
         const exponent = body.readInteger() // e
         this._rsaKey = new RSAKey(this.padding)
-        this._rsaKey.setPublic(modulus.copyToArray(), BAtoHex(exponent.copyToArray()))
+        this._rsaKey.setPublic(modulus.copyToArray(), utils.hex.fromByteArray(exponent.copyToArray()))
     }
     /**
      * https://crypto.stackexchange.com/questions/21102/what-is-the-ssl-private-key-file-format
      * @param {String} base64str 
      */
     setPrivateKey(base64str) {
-        const arr = b64toBA(cleanKey(base64str))
+        const arr = utils.base64.toByteArray(cleanKey(base64str))
         const reader = new ASNReader(arr)
         const all = reader.readSequence();
         all.readInteger(); // just zero
         this._rsaKey = new RSAKey(this.padding)
         this._rsaKey.setPrivateEx(
             all.readInteger().copyToArray(),  // modulus  n
-            BAtoHex(all.readInteger().copyToArray()),  // publicExponent    e
+            utils.hex.fromByteArray(all.readInteger().copyToArray()),  // publicExponent    e
             all.readInteger().copyToArray(),  // privateExponent  d
             all.readInteger().copyToArray(),  // prime1
             all.readInteger().copyToArray(),  // prime2
@@ -53,37 +53,39 @@ class BrowserRsa {
     }
     /**
      * @param {String} str 
-     * @param {Boolean} base64 is return base64 or hex, default base64
+     * @param {Boolean} resultEncoding return encoding, array, base64 or hex, default base64
      * @returns {String}
      */
-    publicEncrypt(str, base64 = true) {
-        return this._rsaKey.publicEncrypt(str, base64)
+    publicEncrypt(str, resultEncoding = 'base64') {
+        return this._rsaKey.publicEncrypt(str, resultEncoding)
     }
     /**
      * 
      * @param {String} ctext hex or base64
-     * @param {Boolean} base64 ctext is base64 or hex, default base64
+     * @param {Boolean} encoding ctext encoding, array, base64 or hex, default base64
+     * @param {Boolean} resultEncoding return encoding, array or utf8 default utf8
      * @returns {String}
      */
-    publicDecrypt(str, base64 = true) {
-        return this._rsaKey.publicDecrypt(str, base64)
+    publicDecrypt(ctext, encoding = 'base64', resultEncoding) {
+        return this._rsaKey.publicDecrypt(ctext, encoding, resultEncoding)
     }
     /**
      * @param {String} str 
-     * @param {Boolean} base64 is return base64 or hex, default base64
+     * @param {Boolean} resultEncoding return encoding, array, base64 or hex, default base64
      * @returns {String}
      */
-    privateEncrypt(str, base64 = true) {
-        return this._rsaKey.privateEncrypt(str, base64)
+    privateEncrypt(str, resultEncoding = 'base64') {
+        return this._rsaKey.privateEncrypt(str, resultEncoding)
     }
     /**
      * 
      * @param {String} ctext hex or base64
-     * @param {Boolean} base64 ctext is base64 or hex, default base64
+     * @param {Boolean} encoding ctext encoding, array, base64 or hex, default base64
+     * @param {Boolean} resultEncoding return encoding, array or utf8 default utf8
      * @returns {String}
      */
-    privateDecrypt(str, base64 = true) {
-        return this._rsaKey.privateDecrypt(str, base64)
+    privateDecrypt(str, encoding = 'base64', resultEncoding) {
+        return this._rsaKey.privateDecrypt(str, encoding, resultEncoding)
     }
 }
 
