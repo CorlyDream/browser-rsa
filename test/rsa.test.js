@@ -10,8 +10,17 @@ hVqo2yO69mpc4z0CICimPLq570ZAe9uVlPPNCGix9yQnZ05EHfzTm4Il6tR/AiEA
 htJm7j0/PnH24O/UKvNrnACnIeBOMi7wIF6B/UN5Wbs=`
 const rsa = new BrowserRsa()
 rsa.setPrivateKey(privateKey)
-const str = '🤮'
-const pStr = rsa.privateEncrypt(str, true)
-const pdStr = rsa.publicDecrypt(pStr, true)
-console.log(str == pdStr, pdStr.charCodeAt(0), pdStr.charCodeAt(1))
-console.log(str, pStr, pdStr)
+const text = '🤮'
+test('rsa publicEncrypt-privateDecrypt encrypt', () => {
+    const pubKeyEncript = rsa.publicEncrypt(text)
+    const pText = rsa.privateDecrypt(pubKeyEncript)
+    console.log(text === pText,text,  pText, pText.charCodeAt(0), pText.charCodeAt(1))
+    expect(text).toEqual(pText)
+})
+
+test('rsa privateEncrypt-publicDecrypt encrypt', () => {
+    const priKeyEncript = rsa.privateEncrypt(text)
+    const pText = rsa.publicDecrypt(priKeyEncript)
+    console.log(text === pText,text,  pText, pText.charCodeAt(0), pText.charCodeAt(1))
+    expect(text).toEqual(pText)
+})
