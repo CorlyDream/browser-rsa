@@ -9,6 +9,9 @@ function cleanKey(key) {
 
 
 class BrowserRsa {
+    /**
+     * @param {String} padding rsa padding, support RSA_PKCS1_PADDING and RSA_PKCS1_OAEP_PADDING, default is RSA_PKCS1_OAEP_PADDING
+     */
     constructor(padding) {
         this.padding = padding
 
@@ -53,8 +56,8 @@ class BrowserRsa {
     }
     /**
      * @param {String} str 
-     * @param {Boolean} resultEncoding return encoding, array, base64 or hex, default base64
-     * @returns {String}
+     * @param {String} resultEncoding return encoding, array, base64 or hex, default base64
+     * @returns {String|Array}
      */
     publicEncrypt(str, resultEncoding = 'base64') {
         return this._rsaKey.publicEncrypt(str, resultEncoding)
@@ -62,17 +65,17 @@ class BrowserRsa {
     /**
      * 
      * @param {String} ctext hex or base64
-     * @param {Boolean} encoding ctext encoding, array, base64 or hex, default base64
-     * @param {Boolean} resultEncoding return encoding, array or utf8 default utf8
-     * @returns {String}
+     * @param {String} encoding ctext encoding, array, base64 or hex, default base64
+     * @param {String} resultEncoding return encoding, array or utf8 default utf8
+     * @returns {String|Array}
      */
     publicDecrypt(ctext, encoding = 'base64', resultEncoding) {
         return this._rsaKey.publicDecrypt(ctext, encoding, resultEncoding)
     }
     /**
      * @param {String} str 
-     * @param {Boolean} resultEncoding return encoding, array, base64 or hex, default base64
-     * @returns {String}
+     * @param {String} resultEncoding return encoding, array, base64 or hex, default base64
+     * @returns {String|Array}
      */
     privateEncrypt(str, resultEncoding = 'base64') {
         return this._rsaKey.privateEncrypt(str, resultEncoding)
@@ -82,7 +85,7 @@ class BrowserRsa {
      * @param {String} ctext hex or base64
      * @param {Boolean} encoding ctext encoding, array, base64 or hex, default base64
      * @param {Boolean} resultEncoding return encoding, array or utf8 default utf8
-     * @returns {String}
+     * @returns {String|Array}
      */
     privateDecrypt(str, encoding = 'base64', resultEncoding) {
         return this._rsaKey.privateDecrypt(str, encoding, resultEncoding)

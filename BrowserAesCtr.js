@@ -18,7 +18,7 @@ class BrowserAesCtr {
      */
     encrypt(data){
         let sourceArray
-        if(Array.isArray(data)){
+        if(utils.isArray(data)){
             sourceArray = data
         }else {
             sourceArray = utils.utf8.toByteArray(data)
@@ -33,7 +33,7 @@ class BrowserAesCtr {
      */
     decrypt(data){
         let sourceArray
-        if(Array.isArray(data)){
+        if(utils.isArray(data)){
             sourceArray = data
         }else {
             sourceArray = utils.base64.toByteArray(data)
