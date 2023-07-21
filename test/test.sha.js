@@ -1,13 +1,4 @@
-import sha1 from '../lib/base/sha1.js'
-import SecureRandom from '../lib/base/rng.js';
-const res = sha1('The quick brown fox jumps over the lazy dog')
-console.log(res)
-var lHash = sha1.create();
-// lHash.update(label);
-const emptyHash = lHash.digest();
-console.log(emptyHash)
+import utils from "../lib/utils"
 
-const random = new SecureRandom();
-const seed = new Array(10);
-random.nextBytes(seed);
-console.log(seed)
+let s = 'eyJpc3MiOiJhdmF0YXJRckxvZ2luIiwib3BlbmlkIjoib1kydEc2dERHS3dReURoQk93Q0pRVVgwVXE3USIsInVuaW9uaWQiOiJvUXNZejUteW1ibEV6emxiTndJcjFjbEEwT3VzIiwibmJmIjoxNjg5OTIwODE4NTkwLCJleHAiOjE2OTAxODAwMTg1OTAsImp0aSI6IjkxNEZEMTgyOEYifQ'
+utils

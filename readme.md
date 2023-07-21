@@ -170,6 +170,8 @@ utils.base64.fromHex
 utils.base64.toHex
 utils.base64.toByteArray
 utils.base64.fromByteArray
+utils.base64.fromBase64Url
+utils.base64.toBase64Url
 
 utils.hex.toByteArray
 utils.hex.fromByteArray

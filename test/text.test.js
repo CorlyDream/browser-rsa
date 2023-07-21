@@ -1,6 +1,6 @@
 import utils from "../lib/utils.js";
 
-const text = "测试数据🤮嘞"
+const text = "测试数据🤮嘞fd廁🚗"
 test("test utf16 <=> bytes", () => {
     const bytes = utils.utf8.toByteArray(text)
     const str = utils.utf8.fromByteArray(bytes)
@@ -14,3 +14,13 @@ test("test base64 <=> hex", () => {
     expect(bytes2.toString('hex')).toBe(bytes3)
 })
 
+
+test("test base64url <=> text", () => {
+    const textBuff = Buffer.from(text)
+    const base64Url = textBuff.toString('base64url')
+    const base64 = utils.base64.fromBase64Url(base64Url)
+    expect(base64Url).toEqual(utils.base64.toBase64Url(base64))
+    expect(base64).toEqual(textBuff.toString('base64'))
+    const arr = utils.base64.toByteArray(base64)
+    expect(text).toEqual(utils.utf8.fromByteArray(arr))
+})
