@@ -18,7 +18,7 @@ class BrowserAesCtr {
      * @param {Array|String} data 
      * @returns {Uint8Array}
      */
-    encrypt(data) {
+    async encrypt(data) {
         if(hasCrypto){
             return this.encryptByCrypto(data)
         }
@@ -37,7 +37,7 @@ class BrowserAesCtr {
      * @param {Array|String} data if string, must be base64
      * @returns {Uint8Array}
      */
-    decrypt(data) {
+    async decrypt(data) {
         if(hasCrypto){
             return this.decryptByCrypto(data)
         }
