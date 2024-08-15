@@ -24,3 +24,24 @@ test("test base64url <=> text", () => {
     const arr = utils.base64.toByteArray(base64)
     expect(text).toEqual(utils.utf8.fromByteArray(arr))
 })
+
+test("test padding base64url <=> text", () => {
+    const t = 'a'
+    const textBuff = Buffer.from(t)
+    const base64Url = textBuff.toString('base64url')
+    const base64 = utils.base64.fromBase64Url(base64Url)
+    expect(base64Url).toEqual(utils.base64.toBase64Url(base64))
+    expect(base64).toEqual(textBuff.toString('base64'))
+    const arr = utils.base64.toByteArray(base64)
+    expect(t).toEqual(utils.utf8.fromByteArray(arr))
+})
+
+test("test base64 encode/decode <=> text", () => {
+    const t = 'a'
+    const en1 = btoa(t)
+    const en2 = utils.base64.encode(t)
+    expect(en1).toEqual(en2)
+    const de1 = atob(en1)
+    const de2 = utils.base64.decode(en2)
+    expect(de1).toEqual(de2)
+})
