@@ -11,6 +11,8 @@ function cleanKey(key) {
 class BrowserRsa {
     /**
      * @param {String} padding rsa padding, support RSA_PKCS1_PADDING and RSA_PKCS1_OAEP_PADDING, default is RSA_PKCS1_OAEP_PADDING
+     * padding set only for : private key decrypt, public key encrypt
+     * private key encrypt, public key decrypt is use RSA_PKCS1_PADDING
      */
     constructor(padding) {
         this.padding = padding
