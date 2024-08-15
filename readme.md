@@ -168,6 +168,8 @@ utils 工具类
 import utils from "browser-rsa/lib/utils";
 
 // base64 处理
+utils.base64.encode // 支持 utf8 字符集。（TextEncoder + btoa）
+utils.base64.decode // 支持 utf8 字符集。（TextDecoder + atob）
 utils.base64.fromHex
 utils.base64.toHex
 utils.base64.toByteArray
