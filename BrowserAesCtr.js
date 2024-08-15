@@ -19,7 +19,7 @@ class BrowserAesCtr {
      * @returns {Uint8Array}
      */
     async encrypt(data) {
-        if(hasCrypto){
+        if(hasCrypto()){
             return this.encryptByCrypto(data)
         }
         let sourceArray
@@ -38,7 +38,7 @@ class BrowserAesCtr {
      * @returns {Uint8Array}
      */
     async decrypt(data) {
-        if(hasCrypto){
+        if(hasCrypto()){
             return this.decryptByCrypto(data)
         }
         let sourceArray
